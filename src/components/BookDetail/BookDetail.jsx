@@ -1,9 +1,6 @@
 import React from "react";
 import { useLoaderData, useParams } from "react-router-dom";
-import {
-  addToStoredReadList,
-  addToStoredWishList,
-} from "../../utility/addToDb";
+import { addToStoredDB } from "../../utility/addToDb";
 
 const BookDetail = () => {
   const { bookId } = useParams();
@@ -26,8 +23,7 @@ const BookDetail = () => {
      * 6. if yes, do not add the book
      */
 
-    addToStoredReadList(id);
-    addToStoredWishList(id);
+    addToStoredDB(id);
   };
 
   return (

@@ -1,46 +1,25 @@
-const getStoredReadList = () => {
-  // read-list
-  const storedListStr = localStorage.getItem("read-list");
-  if (storedListStr) {
-    const storedList = JSON.parse(storedListStr);
-    return storedList;
+const getStoredBook = () => {
+  const storedBookSTR = localStorage.getItem("readList");
+
+  if (storedBookSTR) {
+    const storedBookData = JSON.parse(storedBookSTR);
+    return storedBookData;
   } else {
     return [];
   }
 };
 
-const addToStoredReadList = (id) => {
-  const storedList = getStoredReadList();
-  if (storedList.includes(id)) {
-    // already exists. do not add it
-    console.log(id, "already exists in the read list");
+const addToStoredDB = (id) => {
+  const storedBookData = getStoredBook();
+
+  if (storedBookData.includes(id)) {
+    console.log("hello");
+    alert("bhai ei id already exist ");
   } else {
-    storedList.push(id);
-    const storedListStr = JSON.stringify(storedList);
-    localStorage.setItem("read-list", storedListStr);
+    storedBookData.push(id);
+    const data = JSON.stringify(storedBookData);
+    localStorage.setItem("readList", data);
   }
 };
 
-const getStoredWishList = () => {
-  // wish-list
-  const storedWishListStr = localStorage.getItem("wish-list");
-  if (storedWishListStr) {
-    const storedWishList = JSON.parse(storedWishListStr);
-    return storedWishList;
-  } else {
-    return [];
-  }
-};
-
-const addToStoredWishList = (id) => {
-  const storedWishList = getStoredWishList();
-  if (storedWishList.includes(id)) {
-    // already exists. do not add it
-    console.log(id, "already exists in the read list");
-  } else {
-    storedWishList.push(id);
-    const storedWishListStr = JSON.stringify(storedWishList);
-    localStorage.setItem("read-list", storedWishListStr);
-  }
-};
-export { addToStoredReadList, addToStoredWishList, getStoredReadList };
+export { addToStoredDB, getStoredBook };
