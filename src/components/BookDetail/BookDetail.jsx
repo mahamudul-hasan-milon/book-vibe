@@ -1,12 +1,52 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useLoaderData, useParams } from "react-router-dom";
+import {
+  addToStoredReadList,
+  addToStoredWishList,
+} from "../../utility/addToDb";
 
 const BookDetail = () => {
   const { bookId } = useParams();
-  console.log(bookId);
+  const data = useLoaderData();
+  const id = parseInt(bookId);
+
+  // console.log(typeof bookId, typeof id, typeof data[0].bookId)
+
+  const book = data.find((book) => book.bookId === id);
+
+  const { bookId: currentBookId, image } = book;
+
+  const handleMarkAsRead = (id) => {
+    /**
+     * 1. understand what to store or save: => bookId
+     * 2. where to store: database
+     * 3. array, list, collection:
+     * 4. check: if the book is already in the readList
+     * 5. if not, then add the book to the list
+     * 6. if yes, do not add the book
+     */
+
+    addToStoredReadList(id);
+    addToStoredWishList(id);
+  };
+
   return (
-    <div>
+    <div className="my-12">
       <h2>Book Details: {bookId}</h2>
+      <img className="w-36" src={image} alt="" />
+      <br />
+      <button
+        className="btn btn-outline btn-accent mr-4"
+        onClick={() => handleMarkAsRead(bookId)}
+      >
+        Mark as Read
+      </button>
+      <button
+        onClick={() => handleMarkAsRead(bookId)}
+        className="btn btn-accent"
+      >
+        Add to Wishlist
+      </button>
     </div>
   );
 };
